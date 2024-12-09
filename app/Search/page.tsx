@@ -9,13 +9,12 @@ let curRecipeName = ''
 let curRecipeImage:string = ''
 let curRecipeSteps = ''
 let curRecipeLikes = 0
-let curRecipe: { recipeID: number; recipeName: string; image: string; likes: number; steps: string }
-
+let curRecipe: { recipeID: number; recipeName: string; image: string; likes: number; steps: string } | null
 async function addLike(){
     'use server'
     await prisma.recipe.update({
         where:{
-            recipeID:curRecipe.recipeID
+            recipeID:curRecipe?.recipeID
         },
         data:{
             likes:curRecipeLikes+1
@@ -29,16 +28,16 @@ async function handleSubmit(formData:FormData){
     'use server'
      const selRecipeName = formData.get('recipeSearch') as string
 
-    curRecipe = await prisma.Recipe.findFirst({
+    curRecipe = await prisma.recipe.findFirst({
         where:{
             recipeName: selRecipeName
         }
     })
 
-    curRecipeName = curRecipe.recipeName
-    curRecipeImage = curRecipe.image
-    curRecipeLikes = curRecipe.likes
-    curRecipeSteps = curRecipe.steps
+    curRecipeName = curRecipe?.recipeName!
+    curRecipeImage = curRecipe?.image!
+    curRecipeLikes = curRecipe?.likes!
+    curRecipeSteps = curRecipe?.steps!
 
     revalidatePath("/")
 }
