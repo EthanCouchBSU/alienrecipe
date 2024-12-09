@@ -7,6 +7,7 @@ export default function Home(){
     return(
         <div className = 'alienShipContianer'>
             <motion.img src = 'https://pngimg.com/d/ufo_PNG71668.png'
+            alt = ''
             width = "50"
             height = "50"
             animate ={{

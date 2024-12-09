@@ -3,13 +3,13 @@
 import { PrismaClient} from '@prisma/client'
 import { revalidatePath } from 'next/cache'
 import Alien from './components/Alien'
+import react from 'react'
 
 
-import react, {useState} from 'react'
 const prisma = new PrismaClient()
 
 let generatedRecipe = ''
-let curIngList:any = []
+let curIngList: string[] = []
 let recipeNameInput = ''
 let imageLinkInput = ''
 function randInt(min:number, max:number){
@@ -21,7 +21,7 @@ const stepCount = await prisma.RecipeStep.count()
 
 async function getIngredientsByTag(TagID:number){
   
-  var selectedIng = await prisma.Ingredient.findMany({
+  let selectedIng = await prisma.Ingredient.findMany({
     where:{
       tags:{
         some:{
@@ -33,13 +33,13 @@ async function getIngredientsByTag(TagID:number){
     }
   })
   
-  curIngList = selectedIng.map((ingredient: { ingredientName: any }) => ingredient.ingredientName)
+  curIngList = selectedIng.map((ingredient: { ingredientName: String }) => ingredient.ingredientName)
   
   
 }
 
 function pickRandomWord(){
-  var randomIndex =  Math.floor(Math.random()*curIngList.length)
+  let randomIndex =  Math.floor(Math.random()*curIngList.length)
   return curIngList[randomIndex]
 }
 
@@ -48,11 +48,11 @@ async function handleSubmit(formData:FormData){
   'use server'
   
 
-  var numStep = formData.get('numOfSteps') as unknown as number
-  var tag = formData.get("recipeTags") as string
+  let numStep = formData.get('numOfSteps') as unknown as number
+  let tag = formData.get("recipeTags") as string
   
   
-  var currentStep
+  let currentStep
   
   const curTag = await prisma.Tag.findFirst({
     where:{
@@ -126,7 +126,7 @@ export default async function Home() {
   const tagsl = await prisma.Tag.findMany();
     
     //drop down menu options
-  const tagel = tagsl.map((Tag:any) => <option>{Tag.tagName}</option>)
+  const tagel = tagsl.map((Tag: { tagName:react.Key}) => <option key = {Tag.tagName}>{Tag.tagName}</option>)
   return (
     <div className="addStepPage">
       <Alien/>
