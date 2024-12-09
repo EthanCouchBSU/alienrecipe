@@ -26,13 +26,16 @@ a{
   margin: 5px auto;
 }
 .content{
-  padding: 5px;
+  border: solid;
+  border-width: .4rem;
+  padding: 15px;
   min-height: 900px;
   background-color: #f5f8f1
 }
 
 .submitButton{
   border: solid;
+  background-color:rgb(216, 234, 235) ;
   
   padding: 1px;
   margin: 10px;
@@ -42,4 +45,20 @@ a{
   width: 10px;
   height: 10px;
   
+}
+.addStepPage{
+  padding: 1rem;
+}
+.databaseListHeader{
+  font-size: larger;
+  font-weight: bolder;
+  padding-top: 2rem;
+}
+.title{
+  padding-left: 20%;
+}
+.formDirections{
+  
+  padding-bottom: .4rem;
+  border-bottom: solid;
 }

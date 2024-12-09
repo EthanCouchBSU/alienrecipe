@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 import Navigation from './components/Navigation'
+import AlienHead from './components/AlienHead'
 
 
 
@@ -21,10 +22,12 @@ export default function RootLayout({
       <body
         className="pageContent"
       >
+        
         <div className="content">
           
           <Navigation/>
           {children}
+          <AlienHead/>
         </div>
         
       </body>

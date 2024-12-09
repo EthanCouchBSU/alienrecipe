@@ -45,10 +45,11 @@ async function handleSubmit(formData:FormData){
 function displayRecipe(){
     return(
         <div className="DisplayedRecipe">
-            <div className = 'searchRecipeName'>{curRecipeName}</div>
+            <div className = 'databaseListHeader'>{curRecipeName}</div>
             <div className = 'searchRecipeSteps'>{curRecipeSteps}</div>
             
-            <img className = 'searchRecipeImage' src = {curRecipeImage} alt = ''></img>
+            <img className = 'searchRecipeImage' src = {curRecipeImage} alt = '' width = "100"
+            ></img>
             <div className="searchRecipeLikes"> likes: {curRecipeLikes}</div>
             <button className ='submitButton' onClick={addLike}>Like Recipe</button>
         </div>
