@@ -10,7 +10,7 @@ async function addToDB(formData:FormData){
     'use server'
     const ingredient = formData.get("ingredient") as string
     const selectedTagName = formData.get("tagsDropDown") as string
-    const curTag = await prisma.Tag.findFirst({
+    const curTag = await prisma.tag.findFirst({
         where:{
             tagName:selectedTagName
         }
@@ -35,7 +35,7 @@ async function addToDB(formData:FormData){
 }
 
 async function tagIDtoName(TagID: number){
-    const currentTag = await prisma.Tag.findUnique({
+    const currentTag = await prisma.tag.findUnique({
         where:{
             tagID:TagID
         }
@@ -58,8 +58,8 @@ async function ingIDtoName(IngID: number){
 
 
 export default async function Home() {
-    const ingsl = await prisma.Tag2Ing.findMany();
-    const tagsl = await prisma.Tag.findMany();
+    const ingsl = await prisma.tag2Ing.findMany();
+    const tagsl = await prisma.tag.findMany();
     
     //drop down menu options
     const tagel = tagsl.map((Tag: { tagName:Key}) => <option key = {Tag.tagName}>{Tag.tagName}</option>)
