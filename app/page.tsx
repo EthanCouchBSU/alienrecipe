@@ -16,12 +16,12 @@ function randInt(min:number, max:number){
   return Math.floor(Math.random() *(max-min+1)) +min
 }
 //return how many steps there are
-const stepCount = await prisma.RecipeStep.count()
+const stepCount = await prisma.recipeStep.count()
 
 
 async function getIngredientsByTag(TagID:number){
   
-  const selectedIng = await prisma.Ingredient.findMany({
+  const selectedIng = await prisma.ingredient.findMany({
     where:{
       tags:{
         some:{
@@ -54,7 +54,7 @@ async function handleSubmit(formData:FormData){
   
   let currentStep
   
-  const curTag = await prisma.Tag.findFirst({
+  const curTag = await prisma.tag.findFirst({
     where:{
         tagName:tag
     }
@@ -70,17 +70,18 @@ async function handleSubmit(formData:FormData){
     numStep = 20
   }
   //get x random steps, and add them to the recipe
-  for(let i = 0; i <= numStep; i++){
+  for(let i = 0; i < numStep; i++){
     currentStep = await prisma.RecipeStep.findFirst({
     where:{
-      stepID:randInt(15,15+stepCount -1)
+      stepID:randInt(0,stepCount-1)
     }
   })
   
-    //replace with random word
-    generatedRecipe = generatedRecipe.replace(new RegExp('ing','g'), pickRandomWord)
-  //append to string
+   //append to string
     generatedRecipe += currentStep.step +=". "
+     //replace with random word
+    generatedRecipe = generatedRecipe.replace(new RegExp('ing','g'), pickRandomWord)
+  
   
   }
   

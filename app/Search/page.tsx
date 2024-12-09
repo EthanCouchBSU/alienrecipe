@@ -62,7 +62,7 @@ export default async function home(){
         <div className="addStepPage">
             <Alien/>
             
-            <div className='formDirections'> Please enter a Recipe Name such as Alien Cake below!
+            <div className='formDirections'> Please enter a Recipe Name such as Brocoli Soup below!
                  </div>
             <form action = {handleSubmit} >
                 <input className = 'textInput'type="text" name="recipeSearch" id="recipeQueryInput" placeholder='Enter the recipe name here!' />
