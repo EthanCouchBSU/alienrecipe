@@ -60,7 +60,7 @@ async function handleSubmit(formData:FormData){
 })
 
   //set list of ingredients to pick from 
-    getIngredientsByTag(curTag.tagID)
+    getIngredientsByTag(curTag!.tagID)
 
   //form adjusting
   if (numStep <=1){
@@ -70,14 +70,14 @@ async function handleSubmit(formData:FormData){
   }
   //get x random steps, and add them to the recipe
   for(let i = 0; i < numStep; i++){
-    currentStep = await prisma.RecipeStep.findFirst({
+    currentStep = await prisma.recipeStep.findFirst({
     where:{
       stepID:randInt(0,stepCount-1)
     }
   })
   
    //append to string
-    generatedRecipe += currentStep.step +=". "
+    generatedRecipe += currentStep!.step +=". "
      //replace with random word
     generatedRecipe = generatedRecipe.replace(new RegExp('ing','g'), pickRandomWord)
   
@@ -108,7 +108,7 @@ async function saveToDb(formData:FormData){
     imageLinkInput = ''
   }
   
-  await prisma.Recipe.create({
+  await prisma.recipe.create({
     data:{
       recipeName:recipeNameInput,
       image:imageLinkInput,
@@ -123,7 +123,7 @@ async function saveToDb(formData:FormData){
 
 }
 export default async function Home() {
-  const tagsl = await prisma.Tag.findMany();
+  const tagsl = await prisma.tag.findMany();
     
     //drop down menu options
   const tagel = tagsl.map((Tag: { tagName:react.Key}) => <option key = {Tag.tagName}>{Tag.tagName}</option>)

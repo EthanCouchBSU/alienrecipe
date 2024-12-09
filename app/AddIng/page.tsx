@@ -63,7 +63,7 @@ export default async function Home() {
     
     //drop down menu options
     const tagel = tagsl.map((Tag: { tagName:Key}) => <option key = {Tag.tagName}>{Tag.tagName}</option>)
-    const ingel = ingsl.map((Tag2Ing: { tag: Key | null | undefined; ingredientIDscalar: number; tagIDscalar: number }) => <li key={tag2Ing.tag}>Name: {(ingIDtoName(Tag2Ing.ingredientIDscalar)).getValue()} - Tag: {tagIDtoName(Tag2Ing.tagIDscalar)}</li>)
+    //const ingel = ingsl.map((Tag2Ing: { tag: Key | null | undefined; ingredientIDscalar: number; tagIDscalar: number }) => <li key={tag2Ing.tag}>Name: {(ingIDtoName(Tag2Ing.ingredientIDscalar)).getValue()} - Tag: {tagIDtoName(Tag2Ing.tagIDscalar)}</li>)
 
 
     //const ingel = ingsl.map((Tag2Ing:{tag:Key}) => <li>{ingIDtoName(Tag2Ing.ingredientIDscalar)} - Tag: {tagIDtoName(Tag2Ing.tagIDscalar)}</li>)
@@ -85,7 +85,7 @@ export default async function Home() {
                 
 
             </form>
-            <div className="databaseListHeader">Ingredients:{ingel}</div>
+            
         </div>
     )
 }
