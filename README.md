@@ -1,3 +1,18 @@
+CS315 p3 submission, Alien recipe generater. Utilizes vercel for databse managment.
+Vercel Link: https://alienrecipe-lywbhjztc-ethancouchbsus-projects.vercel.app
+
+
+
+
+
+
+
+
+
+
+
+
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
