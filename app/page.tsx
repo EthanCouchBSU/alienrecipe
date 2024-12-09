@@ -35,7 +35,6 @@ async function getIngredientsByTag(TagID:number){
   
   curIngList = selectedIng.map((ingredient: { ingredientName: string }) => ingredient.ingredientName)
   
-  
 }
 
 function pickRandomWord(){
