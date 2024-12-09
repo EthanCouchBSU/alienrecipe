@@ -15,7 +15,7 @@ const prisma = new PrismaClient()
 //add entered step database on form submit
 async function addToDB(formData:FormData){
     'use server'
-    let value = formData.get("step") as string
+    const value = formData.get("step") as string
 
     await prisma.RecipeStep.create({
         data:{

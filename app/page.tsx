@@ -21,7 +21,7 @@ const stepCount = await prisma.RecipeStep.count()
 
 async function getIngredientsByTag(TagID:number){
   
-  let selectedIng = await prisma.Ingredient.findMany({
+  const selectedIng = await prisma.Ingredient.findMany({
     where:{
       tags:{
         some:{
@@ -33,13 +33,13 @@ async function getIngredientsByTag(TagID:number){
     }
   })
   
-  curIngList = selectedIng.map((ingredient: { ingredientName: String }) => ingredient.ingredientName)
+  curIngList = selectedIng.map((ingredient: { ingredientName: string }) => ingredient.ingredientName)
   
   
 }
 
 function pickRandomWord(){
-  let randomIndex =  Math.floor(Math.random()*curIngList.length)
+  const randomIndex =  Math.floor(Math.random()*curIngList.length)
   return curIngList[randomIndex]
 }
 
@@ -49,7 +49,7 @@ async function handleSubmit(formData:FormData){
   
 
   let numStep = formData.get('numOfSteps') as unknown as number
-  let tag = formData.get("recipeTags") as string
+  const tag = formData.get("recipeTags") as string
   
   
   let currentStep

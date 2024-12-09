@@ -2,14 +2,14 @@ import { PrismaClient} from '@prisma/client'
 
 import { revalidatePath } from 'next/cache'
 import Alien from '../components/Alien'
-import { ReactElement, JSXElementConstructor, ReactNode, ReactPortal, AwaitedReactNode, Key } from 'react'
+import {Key } from 'react'
 const prisma = new PrismaClient()
 
 async function addToDB(formData:FormData){
     
     'use server'
-    let ingredient = formData.get("ingredient") as string
-    let selectedTagName = formData.get("tagsDropDown") as string
+    const ingredient = formData.get("ingredient") as string
+    const selectedTagName = formData.get("tagsDropDown") as string
     const curTag = await prisma.Tag.findFirst({
         where:{
             tagName:selectedTagName
@@ -35,7 +35,7 @@ async function addToDB(formData:FormData){
 }
 
 async function tagIDtoName(TagID: number){
-    let currentTag = await prisma.Tag.findUnique({
+    const currentTag = await prisma.Tag.findUnique({
         where:{
             tagID:TagID
         }
@@ -45,7 +45,7 @@ async function tagIDtoName(TagID: number){
 
 
 async function ingIDtoName(IngID: number){
-    let currentIng = await prisma.ingredient.findUnique({
+    const currentIng = await prisma.ingredient.findUnique({
         where:{
             ingredientID:IngID
         }
@@ -63,7 +63,7 @@ export default async function Home() {
     
     //drop down menu options
     const tagel = tagsl.map((Tag: { tagName:Key}) => <option key = {Tag.tagName}>{Tag.tagName}</option>)
-    const ingel = ingsl.map((Tag2Ing: { tag: Key | null | undefined; ingredientIDscalar: any; tagIDscalar: any }) => <li key={Tag2Ing.tag}>Name: {ingIDtoName(Tag2Ing.ingredientIDscalar)} - Tag: {tagIDtoName(Tag2Ing.tagIDscalar)}</li>)
+    const ingel = ingsl.map((Tag2Ing: { tag: Key | null | undefined; ingredientIDscalar: number; tagIDscalar: number }) => <li key={Tag2Ing.tag}>Name: {ingIDtoName(Tag2Ing.ingredientIDscalar)} - Tag: {tagIDtoName(Tag2Ing.tagIDscalar)}</li>)
    
       return(
         <div className="addStepPage">
