@@ -1,14 +1,15 @@
 import { PrismaClient} from '@prisma/client'
-import { connect } from 'http2'
+
 import { revalidatePath } from 'next/cache'
 import Alien from '../components/Alien'
+import { ReactElement, JSXElementConstructor, ReactNode, ReactPortal, AwaitedReactNode, Key } from 'react'
 const prisma = new PrismaClient()
 
 async function addToDB(formData:FormData){
     
     'use server'
-    var ingredient = formData.get("ingredient") as string
-    var selectedTagName = formData.get("tagsDropDown") as string
+    let ingredient = formData.get("ingredient") as string
+    let selectedTagName = formData.get("tagsDropDown") as string
     const curTag = await prisma.Tag.findFirst({
         where:{
             tagName:selectedTagName
@@ -33,8 +34,8 @@ async function addToDB(formData:FormData){
 
 }
 
-async function tagIDtoName(TagID:any){
-    var currentTag = await prisma.Tag.findUnique({
+async function tagIDtoName(TagID: number){
+    let currentTag = await prisma.Tag.findUnique({
         where:{
             tagID:TagID
         }
@@ -43,8 +44,8 @@ async function tagIDtoName(TagID:any){
 }
 
 
-async function ingIDtoName(IngID:any){
-    var currentIng = await prisma.ingredient.findUnique({
+async function ingIDtoName(IngID: number){
+    let currentIng = await prisma.ingredient.findUnique({
         where:{
             ingredientID:IngID
         }
@@ -61,8 +62,8 @@ export default async function Home() {
     const tagsl = await prisma.Tag.findMany();
     
     //drop down menu options
-    const tagel = tagsl.map((Tag:any) => <option>{Tag.tagName}</option>)
-    const ingel = ingsl.map((Tag2Ing:any) => <li key={Tag2Ing.tag}>Name: {ingIDtoName(Tag2Ing.ingredientIDscalar)} - Tag: {tagIDtoName(Tag2Ing.tagIDscalar)}</li>)
+    const tagel = tagsl.map((Tag: { tagName:Key}) => <option key = {Tag.tagName}>{Tag.tagName}</option>)
+    const ingel = ingsl.map((Tag2Ing: { tag: Key | null | undefined; ingredientIDscalar: any; tagIDscalar: any }) => <li key={Tag2Ing.tag}>Name: {ingIDtoName(Tag2Ing.ingredientIDscalar)} - Tag: {tagIDtoName(Tag2Ing.tagIDscalar)}</li>)
    
       return(
         <div className="addStepPage">
