@@ -1,17 +1,15 @@
-import { text } from "stream/consumers";
+
 import { PrismaClient} from '@prisma/client'
 import { revalidatePath } from 'next/cache'
 
 
-
-import react, {useState} from 'react'
 import Alien from '../components/Alien'
 const prisma = new PrismaClient()
 let curRecipeName = ''
-let curRecipeImage:any = null
+let curRecipeImage:string = ''
 let curRecipeSteps = ''
 let curRecipeLikes = 0
-let curRecipe:any
+let curRecipe: { recipeID: number; recipeName: string; image: string; likes: number; steps: string }
 
 async function addLike(){
     'use server'
@@ -29,7 +27,7 @@ async function addLike(){
 
 async function handleSubmit(formData:FormData){
     'use server'
-     var selRecipeName = formData.get('recipeSearch') as string
+     let selRecipeName = formData.get('recipeSearch') as string
 
     curRecipe = await prisma.Recipe.findFirst({
         where:{
@@ -51,7 +49,7 @@ function displayRecipe(){
             <div className = 'searchRecipeName'>{curRecipeName}</div>
             <div className = 'searchRecipeSteps'>{curRecipeSteps}</div>
             
-            <img className = 'searchRecipeImage' src = {curRecipeImage}></img>
+            <img className = 'searchRecipeImage' src = {curRecipeImage} alt = ''></img>
             <div className="searchRecipeLikes"> likes: {curRecipeLikes}</div>
             <button className ='submitButton' onClick={addLike}>Like Recipe</button>
         </div>
