@@ -23,7 +23,7 @@ async function addToDB(formData:FormData){
                 create:{
                     tag:{
                         connect:{
-                            tagID:curTag.tagID
+                            tagID:curTag?.tagID
                         }
                     }
                 }
@@ -40,7 +40,7 @@ async function tagIDtoName(TagID: number){
             tagID:TagID
         }
     })
-    return currentTag.tagName
+    return currentTag?.tagName
 }
 
 
@@ -50,7 +50,7 @@ async function ingIDtoName(IngID: number){
             ingredientID:IngID
         }
     })
-    return currentIng.ingredientName
+    return currentIng?.ingredientName
 }
 
 
@@ -63,7 +63,7 @@ export default async function Home() {
     
     //drop down menu options
     const tagel = tagsl.map((Tag: { tagName:Key}) => <option key = {Tag.tagName}>{Tag.tagName}</option>)
-    const ingel = ingsl.map((Tag2Ing: { tag: Key | null | undefined; ingredientIDscalar: number; tagIDscalar: number }) => <li key={Tag2Ing.tag}>Name: {ingIDtoName(Tag2Ing.ingredientIDscalar)} - Tag: {tagIDtoName(Tag2Ing.tagIDscalar)}</li>)
+    const ingel = ingsl.map((Tag2Ing: {tag}) => <li key={Tag2Ing.tag}>Name: {ingIDtoName(Tag2Ing.ingredientIDscalar)} - Tag: {tagIDtoName(Tag2Ing.tagIDscalar)}</li>)
    
       return(
         <div className="addStepPage">
