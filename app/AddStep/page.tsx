@@ -2,6 +2,7 @@
 
 import { PrismaClient} from '@prisma/client'
 import { revalidatePath } from 'next/cache'
+import Alien from '../components/Alien'
 
 
 import react, {useState} from 'react'
@@ -53,13 +54,14 @@ export default async function home(){
     ) => <li key={RecipeStep.stepId}> {RecipeStep.step}</li>)
     return(
         <div className = "addStepPage">
+            <Alien/>
             <div className='formDirections'>
                 Please enter a cooking instruction. Include ing to be replaced
                 with an ingredient. Ex: "bake the ing for 30 minutes.""
             </div>
         
             <form action = {addToDB}>
-                <input type="text" name="step" id="stepQueryInput" placeholder='Enter the step here!' />
+                <input className = 'textInput'type="text" name="step" id="stepQueryInput" placeholder='Enter the step here!' />
                 <button className= "submitButton" id ="addStepPageSubmit" type="submit">Submit</button>
             </form>
 

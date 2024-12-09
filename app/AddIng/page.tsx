@@ -1,6 +1,7 @@
 import { PrismaClient} from '@prisma/client'
 import { connect } from 'http2'
 import { revalidatePath } from 'next/cache'
+import Alien from '../components/Alien'
 const prisma = new PrismaClient()
 
 async function addToDB(formData:FormData){
@@ -32,7 +33,7 @@ async function addToDB(formData:FormData){
 
 }
 
-async function tagIDtoName(TagID){
+async function tagIDtoName(TagID:any){
     var currentTag = await prisma.Tag.findUnique({
         where:{
             tagID:TagID
@@ -42,7 +43,7 @@ async function tagIDtoName(TagID){
 }
 
 
-async function ingIDtoName(IngID){
+async function ingIDtoName(IngID:any){
     var currentIng = await prisma.ingredient.findUnique({
         where:{
             ingredientID:IngID
@@ -60,27 +61,28 @@ export default async function Home() {
     const tagsl = await prisma.Tag.findMany();
     
     //drop down menu options
-    const tagel = tagsl.map((Tag) => <option>{Tag.tagName}</option>)
-    const ingel = ingsl.map((Tag2Ing) => <li key={Tag2Ing.tag}>Name: {ingIDtoName(Tag2Ing.ingredientIDscalar)} - Tag: {tagIDtoName(Tag2Ing.tagIDscalar)}</li>)
+    const tagel = tagsl.map((Tag:any) => <option>{Tag.tagName}</option>)
+    const ingel = ingsl.map((Tag2Ing:any) => <li key={Tag2Ing.tag}>Name: {ingIDtoName(Tag2Ing.ingredientIDscalar)} - Tag: {tagIDtoName(Tag2Ing.tagIDscalar)}</li>)
    
       return(
         <div className="addStepPage">
+            <Alien/>
             <div className='formDirections'>
                 Please enter an ingredient and select a tag from the drop down menu.
             </div>
-
+            
             <form action = {addToDB}>
-                <input type="text" name="ingredient" id="ingQueryInput" placeholder='Enter the ingredient here!' />
+                <input className='textInput'type="text" name="ingredient" id="ingQueryInput" placeholder='Enter the ingredient here!' />
                 <label htmlFor="tagsDropDown">Tag:</label>
                 <select name="tagsDropDown" className='tagDropDown'>
                     {tagel}
                 </select>
                 <button className= "submitButton" id ="addIngredientPageSubmit" type="submit">Submit</button>
 
-                <div className="databaseListHeader">Ingredients:{ingel}</div>
+                
 
             </form>
-
+            <div className="databaseListHeader">Ingredients:{ingel}</div>
         </div>
     )
 }

@@ -2,6 +2,7 @@
 
 import { PrismaClient} from '@prisma/client'
 import { revalidatePath } from 'next/cache'
+import Alien from './components/Alien'
 
 
 import react, {useState} from 'react'
@@ -32,7 +33,7 @@ async function getIngredientsByTag(TagID:number){
     }
   })
   
-  curIngList = selectedIng.map(ingredient => ingredient.ingredientName)
+  curIngList = selectedIng.map((ingredient: { ingredientName: any }) => ingredient.ingredientName)
   
   
 }
@@ -125,9 +126,10 @@ export default async function Home() {
   const tagsl = await prisma.Tag.findMany();
     
     //drop down menu options
-  const tagel = tagsl.map((Tag) => <option>{Tag.tagName}</option>)
+  const tagel = tagsl.map((Tag:any) => <option>{Tag.tagName}</option>)
   return (
     <div className="addStepPage">
+      <Alien/>
       <div className='formDirections'>To add to the recipe, please select how many steps to use, and a
         tag to use.
       </div>

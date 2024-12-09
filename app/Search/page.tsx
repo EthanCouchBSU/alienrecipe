@@ -3,8 +3,9 @@ import { PrismaClient} from '@prisma/client'
 import { revalidatePath } from 'next/cache'
 
 
+
 import react, {useState} from 'react'
-import { form } from "motion/react-client";
+import Alien from '../components/Alien'
 const prisma = new PrismaClient()
 let curRecipeName = ''
 let curRecipeImage:any = null
@@ -61,6 +62,8 @@ function displayRecipe(){
 export default async function home(){
     return(
         <div className="addStepPage">
+            <Alien/>
+            
             <div className='formDirections'> Please enter a Recipe Name such as 'Alien Cake' below!
                  </div>
             <form action = {handleSubmit} >
