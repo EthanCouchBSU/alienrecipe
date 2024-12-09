@@ -5,7 +5,7 @@ import { revalidatePath } from 'next/cache'
 import Alien from '../components/Alien'
 
 
-import react, {useState} from 'react'
+import react from 'react'
 
 
 
@@ -15,7 +15,7 @@ const prisma = new PrismaClient()
 //add entered step database on form submit
 async function addToDB(formData:FormData){
     'use server'
-    var value = formData.get("step") as string
+    let value = formData.get("step") as string
 
     await prisma.RecipeStep.create({
         data:{
@@ -35,7 +35,7 @@ async function truncateSteps(){
     await prisma.RecipeStep.deleteMany({where: {}})
     revalidatePath("/")
 }
-*/
+
 async function getStep(stepID: string){
     const step = await prisma.RecipeStep.findUniqueOrThrow({
         where:{
@@ -44,30 +44,31 @@ async function getStep(stepID: string){
     })
     return step
     }
-
+*/
 
 export default async function home(){
     
     //get list of steps
     const stepsl = await prisma.RecipeStep.findMany();
-    const stepel = stepsl.map((RecipeStep: { stepId: react.Key | null | undefined; step: string | number | bigint | boolean | react.ReactElement<any, string | react.JSXElementConstructor<any>> | Iterable<react.ReactNode> | react.ReactPortal | Promise<react.AwaitedReactNode> | null | undefined }
-    ) => <li key={RecipeStep.stepId}> {RecipeStep.step}</li>)
+    const stepel = stepsl.map((RecipeStep: { step:react.Key}
+    ) => <li key={RecipeStep.step}> {RecipeStep.step}</li>)
     return(
-        <div className = "addStepPage">
+        <div className = 'addStepPage'>
             <Alien/>
             <div className='formDirections'>
                 Please enter a cooking instruction. Include ing to be replaced
-                with an ingredient. Ex: "bake the ing for 30 minutes.""
+                with an ingredient. Ex: bake the ing for 30 minutes.
             </div>
         
             <form action = {addToDB}>
-                <input className = 'textInput'type="text" name="step" id="stepQueryInput" placeholder='Enter the step here!' />
-                <button className= "submitButton" id ="addStepPageSubmit" type="submit">Submit</button>
+                <input className = 'textInput'type='text' name='step' id='stepQueryInput' placeholder='Enter the step here!' />
+                <button className= 'submitButton' id ='addStepPageSubmit' type="submit">Submit</button>
             </form>
 
             
             
-            <div className="databaseListHeader">Steps:{stepel}</div>
+            <div className='databaseListHeader'>Steps:</div>
+            <div className = 'dbList'>{stepel}</div>
             
         </div>
     )
