@@ -33,7 +33,8 @@ async function addToDB(formData:FormData){
     revalidatePath("/")
 
 }
-
+/* vercel was being an absolute pain with eslint on variable assignment here,
+may implement later
 async function tagIDtoName(TagID: number){
     const currentTag = await prisma.tag.findUnique({
         where:{
@@ -54,11 +55,11 @@ async function ingIDtoName(IngID: number){
 }
 
 
-
+*/
 
 
 export default async function Home() {
-    const ingsl = await prisma.tag2Ing.findMany();
+    //const ingsl = await prisma.tag2Ing.findMany();
     const tagsl = await prisma.tag.findMany();
     
     //drop down menu options
