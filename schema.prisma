@@ -1,0 +1,41 @@
+generator client {
+provider = "prisma-client-js"
+}
+datasource db {
+provider = "postgresql"
+url = env("POSTGRES_PRISMA_URL") // uses connection pooling
+directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
+}
+model Ingredient{
+ingredientID Int @id @default(autoincrement())
+ingredientName String
+tags Tag2Ing[]
+}
+
+model Tag{
+tagID Int @id @default(autoincrement())
+tagName String
+ingredients Tag2Ing[]
+}
+
+model Tag2Ing{
+
+tag Tag @relation(fields: [tagIDscalar], references: [tagID])
+tagIDscalar Int
+ingredient Ingredient @relation(fields: [ingredientIDscalar], references: [ingredientID])
+ingredientIDscalar Int
+
+@@id([tagIDscalar,ingredientIDscalar])
+}
+model Recipe{
+recipeID Int @id @default(autoincrement())
+recipeName String 
+image String
+likes Int
+steps String
+}
+
+model RecipeStep{
+stepID Int @id @default(autoincrement())
+step String
+}
