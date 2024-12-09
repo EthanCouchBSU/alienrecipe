@@ -1,6 +1,7 @@
 // form validation not required
 
 import { PrismaClient} from '@prisma/client'
+
 import { revalidatePath } from 'next/cache'
 import Alien from '../components/Alien'
 
@@ -17,7 +18,7 @@ async function addToDB(formData:FormData){
     'use server'
     const value = formData.get("step") as string
 
-    await prisma.RecipeStep.create({
+    await prisma.recipeStep.create({
         data:{
             step:value
         }
@@ -49,9 +50,9 @@ async function getStep(stepID: string){
 export default async function home(){
     
     //get list of steps
-    const stepsl = await prisma.RecipeStep.findMany();
-    const stepel = stepsl.map((RecipeStep: { step:react.Key}
-    ) => <li key={RecipeStep.step}> {RecipeStep.step}</li>)
+    const stepsl = await prisma.recipeStep.findMany();
+    const stepel = stepsl.map((recipeStep: { step:react.Key}
+    ) => <li key={recipeStep.step}> {recipeStep.step}</li>)
     return(
         <div className = 'addStepPage'>
             <Alien/>
