@@ -20,7 +20,7 @@ const stepCount = await prisma.recipeStep.count()
 
 
 async function getIngredientsByTag(TagID:number){
-  
+  // many to many relation ship query, get an aingredient where in the relation to tag2ing, the selected tag id is present
   const selectedIng = await prisma.ingredient.findMany({
     where:{
       tags:{
