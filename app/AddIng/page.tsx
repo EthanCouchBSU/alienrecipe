@@ -68,7 +68,7 @@ export default async function Home() {
     //const ingel = ingsl.map((Tag2Ing: { tag: Key | null | undefined; ingredientIDscalar: number; tagIDscalar: number }) => <li key={tag2Ing.tag}>Name: {(ingIDtoName(Tag2Ing.ingredientIDscalar)).getValue()} - Tag: {tagIDtoName(Tag2Ing.tagIDscalar)}</li>)
 
 
-    const ingel = ingsl.map((Tag2Ing) => <li>{ingIDtoName(Tag2Ing.ingredientIDscalar)} - Tag: {tagIDtoName(Tag2Ing.tagIDscalar)}</li>)
+    const ingel = ingsl.map((Tag2Ing) => <li key = {Tag2Ing.ingredientIDscalar}>{ingIDtoName(Tag2Ing.ingredientIDscalar)} - Tag: {tagIDtoName(Tag2Ing.tagIDscalar)}</li>)
       return(
         <div className="addStepPage">
             <Alien/>
