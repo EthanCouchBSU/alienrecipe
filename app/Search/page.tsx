@@ -27,7 +27,8 @@ async function addLike(){
 async function handleSubmit(formData:FormData){
     'use server'
      const selRecipeName = formData.get('recipeSearch') as string
-
+    //mark this line bc vercel wont update to deployed file correctly and 
+    //keeps messing this line up
     curRecipe = await prisma.recipe.findFirst({
         where:{
             recipeName: selRecipeName
