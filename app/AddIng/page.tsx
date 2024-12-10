@@ -34,7 +34,8 @@ async function addToDB(formData:FormData){
 
 }
 /* vercel was being an absolute pain with eslint on variable assignment here,
-may implement later
+*/
+
 async function tagIDtoName(TagID: number){
     const currentTag = await prisma.tag.findUnique({
         where:{
@@ -55,11 +56,11 @@ async function ingIDtoName(IngID: number){
 }
 
 
-*/
+
 
 
 export default async function Home() {
-    //const ingsl = await prisma.tag2Ing.findMany();
+    const ingsl = await prisma.tag2Ing.findMany();
     const tagsl = await prisma.tag.findMany();
     
     //drop down menu options
@@ -67,7 +68,7 @@ export default async function Home() {
     //const ingel = ingsl.map((Tag2Ing: { tag: Key | null | undefined; ingredientIDscalar: number; tagIDscalar: number }) => <li key={tag2Ing.tag}>Name: {(ingIDtoName(Tag2Ing.ingredientIDscalar)).getValue()} - Tag: {tagIDtoName(Tag2Ing.tagIDscalar)}</li>)
 
 
-    //const ingel = ingsl.map((Tag2Ing:{tag:Key}) => <li>{ingIDtoName(Tag2Ing.ingredientIDscalar)} - Tag: {tagIDtoName(Tag2Ing.tagIDscalar)}</li>)
+    const ingel = ingsl.map((Tag2Ing) => <li>{ingIDtoName(Tag2Ing.ingredientIDscalar)} - Tag: {tagIDtoName(Tag2Ing.tagIDscalar)}</li>)
       return(
         <div className="addStepPage">
             <Alien/>
@@ -86,6 +87,7 @@ export default async function Home() {
                 
 
             </form>
+            {ingel}
             
         </div>
     )
